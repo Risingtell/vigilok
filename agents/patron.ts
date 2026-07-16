@@ -50,7 +50,12 @@ function decide(step: string, priceUsd: number): boolean {
 }
 
 function record(step: string, out: CallOutcome): void {
-  const paidUsd = usd(out.settlement?.amount);
+  // OKX's PAYMENT-RESPONSE always reports settlement.amount as null (a known
+  // platform quirk, not specific to VigilOK — see scripts/verify.ts for the
+  // trustless source of truth). Since every VigilOK route is x402 `exact`
+  // (never metered), the quoted price from the 402 challenge IS the settled
+  // amount, so fall back to that instead of showing a misleading $0.0000.
+  const paidUsd = usd(out.settlement?.amount) || usd(out.quote?.value);
   spentUsd += paidUsd;
   receipts.push({ step, usd: paidUsd, tx: out.settlement?.transaction ?? null });
   const tx = out.settlement?.transaction;
