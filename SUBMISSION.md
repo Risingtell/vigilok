@@ -1,7 +1,8 @@
 # VigilOK — OKX.AI listing runbook
 
 Everything needed to take VigilOK from "working locally" to "listed and live."
-No hard deadline on this one — do each step properly.
+Submitting to OKX.AI Genesis as its own separate entry alongside Argus (not
+merged — see [[project-okx-genesis]]). Deadline: **2026-07-27 23:59 UTC**.
 
 ---
 
@@ -12,7 +13,7 @@ runs as a web service, not a serverless function. `render.yaml` is already
 committed.
 
 1. Go to **render.com**, sign in with GitHub.
-2. **New +** -> **Blueprint** -> pick the repo (once pushed — see note below).
+2. **New +** -> **Blueprint** -> pick the repo `Risingtell/vigilok`.
 3. Set the secret env vars (copy from your local `.env` — never paste them
    anywhere public): `OKX_API_KEY`, `OKX_SECRET_KEY`, `OKX_PASSPHRASE`,
    `PAY_TO`, `MPP_MERCHANT_PRIVATE_KEY`, `MPP_SECRET_KEY`, `BUYER_PRIVATE_KEY`.
@@ -25,23 +26,16 @@ committed.
 > OKX review window and any live demo, either ping it to keep it warm or bump
 > to the paid instance.
 
-**Not yet pushed to GitHub** — this repo is currently local-only
-(`C:\Users\HP\vigilok`, one commit on `master`). Create a repo (recommend
-`github.com/Risingtell/vigilok`, public, same convention as Argus/Sluice) and
-push before the Render blueprint step, since Render deploys from a GitHub repo.
-
-**After deploy, replace `https://vigilok.onrender.com` below with the real URL.**
+**Done** — pushed to `github.com/Risingtell/vigilok` (public), deployed at
+`https://vigilok.onrender.com`, listed as Agent #6032, confirmed live with a
+real sale.
 
 ---
 
 ## Step 2 — List VigilOK as an ASP on OKX.AI
 
-Same flow as Argus: the OKX Onchain OS agent flow (`onchainos` CLI) + your
-Agentic Wallet (email login), which writes the identity on-chain. Registers as
-an **Agent-to-MCP (A2MCP)** provider — pay-per-call, x402-gated. ASP-role
-registration is not affected by the open buyer/User-role provisioning bug (see
-[[project-okx-genesis]] in memory) — it's the same path that already worked
-for Argus.
+**Done** — approved and live as Agent **#6032**, searchable as "VigilOK."
+Kept below for reference (identity/service copy as actually submitted).
 
 ### ASP identity
 
@@ -80,12 +74,13 @@ two formally listed services below.
 
 ---
 
-## Step 3 — X post + demo (only if you want this in the Genesis campaign too)
+## Step 3 — X post + demo + Google form (still to do)
 
-Not required to just have VigilOK live on the marketplace — the Google form
-(`forms.gle/mddEUagmDbyV37ws8`) and #OKXAI post are specifically for Genesis
-campaign credit. Decide separately whether this one goes in for that; the
-copy below is ready either way.
+VigilOK is going into the Genesis campaign as its own entry. Submit
+**https://forms.gle/mddEUagmDbyV37ws8** with Agent #6032's details + the
+link to the X post below, before **2026-07-27 23:59 UTC**. Note the form
+takes one Agent ID per submission — this is a separate form pass from
+Argus's, not a shared one.
 
 ### X post draft
 
