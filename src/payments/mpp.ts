@@ -74,7 +74,7 @@ export async function watchSessionHandler(req: ExReq, res: ExRes): Promise<void>
     amount: "500", // unit price: 0.0005 USD₮0 per re-check
     currency: USDT0,
     recipient: process.env.PAY_TO!,
-    description: "VigilOK watch — per-recheck position monitoring channel",
+    description: "VigilOK watch - per-recheck position monitoring channel",
     unitType: "check",
     suggestedDeposit: "50000", // ~100 rechecks
     methodDetails: {
