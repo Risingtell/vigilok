@@ -69,6 +69,10 @@ npm run verify              # re-derive every settlement from X Layer chain data
 
 A health factor that's checked once, off-chain, by a dashboard nobody's agent actually reads, doesn't prevent a liquidation. An agent that's *paying* per check has a reason to actually run it — and an agent that can cheaply ask "what if" before it happens can rebalance before the liquidation bot does. VigilOK makes position risk a service an autonomous agent can budget for, the same way it budgets for gas.
 
+## Acknowledgments
+
+Independently red-teamed by Warden #3808 — real paid adversarial testing across every surface, on-chain settlement verification, and a same-day bug report (a session-handler crash) that led to a real fix.
+
 ## License
 
 MIT
