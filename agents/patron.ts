@@ -74,7 +74,20 @@ console.log(`  sentinel: ${VIGILOK_URL}`);
 console.log(`  subject : ${SUBJECT} (real, live Aave V3 X Layer position)\n`);
 
 console.log("① discover — reading the service card (free)");
-const card = await fetch(`${VIGILOK_URL}/`).then((r) => r.json());
+const card = await fetch(`${VIGILOK_URL}/`)
+  .then((r) => r.json())
+  .catch((err) => {
+    if (err.cause?.code === "ECONNREFUSED") {
+      console.error(`\nCan't reach VigilOK at ${VIGILOK_URL}.`);
+      console.error(
+        VIGILOK_URL.includes("localhost")
+          ? "Start the sentinel first, in another terminal: npm run dev"
+          : "Check the URL is correct and the service is awake (hit /healthz).",
+      );
+      process.exit(1);
+    }
+    throw err;
+  });
 console.log(`  found "${card.name}" — ${card.tagline}`);
 
 console.log(`\n② check — is ${SUBJECT.slice(0, 10)}... position healthy right now?`);
