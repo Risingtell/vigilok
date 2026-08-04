@@ -89,6 +89,14 @@ export async function watchSessionHandler(req: ExReq, res: ExRes): Promise<void>
     res.status(400).json({ error: "body must include { address }" });
     return;
   }
+  if (alertBelow !== undefined && (typeof alertBelow !== "number" || !Number.isFinite(alertBelow))) {
+    // A malformed threshold must reject, not silently disable the alert: a
+    // NaN comparison is always false, so this is the difference between "the
+    // sentinel has nothing to warn about" and "the sentinel silently stopped
+    // watching," which must never look the same to the caller.
+    res.status(400).json({ error: "alertBelow must be a number" });
+    return;
+  }
   try {
     const result = await mpp().session(sessionOpts)(toWeb(req));
     if (result.status === 402) return send(res, result.challenge);

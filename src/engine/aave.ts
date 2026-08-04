@@ -149,12 +149,18 @@ export async function simulatePosition(input: SimulationInput): Promise<Simulati
   const factor = 1 + input.pctChange / 100;
   const shocked = legs.map((l) => (l.asset === target.asset ? { ...l, collateralUsd: l.collateralUsd * factor, debtUsd: l.debtUsd * factor } : l));
 
+  // totalCollateralUsd reports every leg's value regardless of the user's
+  // collateral toggle (matches checkPosition's own definition), but the
+  // weighted threshold and health factor must only be driven by legs the user
+  // has actually enabled as collateral — a leg held for yield with collateral
+  // disabled contributes zero to both, the same as Aave's own contract.
   const totalCollateralUsd = shocked.reduce((s, l) => s + l.collateralUsd, 0);
   const totalDebtUsd = shocked.reduce((s, l) => s + l.debtUsd, 0);
+  const collateralEnabledUsd = shocked.reduce((s, l) => s + (l.usageAsCollateralEnabled ? l.collateralUsd : 0), 0);
   const weightedThresholdNumerator = shocked.reduce((s, l) => s + (l.usageAsCollateralEnabled ? l.collateralUsd * l.liquidationThreshold : 0), 0);
-  const weightedLiquidationThreshold = totalCollateralUsd > 0 ? weightedThresholdNumerator / totalCollateralUsd : 0;
+  const weightedLiquidationThreshold = collateralEnabledUsd > 0 ? weightedThresholdNumerator / collateralEnabledUsd : 0;
 
-  const healthFactor = totalDebtUsd === 0 ? null : (totalCollateralUsd * weightedLiquidationThreshold) / totalDebtUsd;
+  const healthFactor = totalDebtUsd === 0 ? null : weightedThresholdNumerator / totalDebtUsd;
 
   const baseline = await checkPosition(input.address);
 
