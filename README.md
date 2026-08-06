@@ -4,6 +4,8 @@ Agents are starting to manage real DeFi positions on [okx.ai](https://www.okx.ai
 
 VigilOK answers that with real numbers, not a guess. It reads live Aave V3 positions on X Layer directly from the Pool, Oracle and ProtocolDataProvider contracts, computes the real health factor, and can stress-test it against a hypothetical price move before that move happens — settled per query in USD₮0 over the OKX Agent Payments Protocol.
 
+Live on OKX.AI as Agent **#6032** — [okx.ai/agents/6032](https://www.okx.ai/agents/6032), deployed at [vigilok.onrender.com](https://vigilok.onrender.com).
+
 ## Services
 
 | Route | What you buy | Price | Payment |
